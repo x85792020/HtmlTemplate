@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #div1 {
+            border: 1px solid red;
+        }
+
+        div>img {
+
+            padding: 10px;
+            margin: 10px;
+            border-radius: 50%;
+        }
+
+        #div1:empty {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="https://www.smallbizgenius.net/wp-content/uploads/2020/01/smallbizgenius_software-1.png" alt="">
+    <img src="https://www.smallbizgenius.net/wp-content/uploads/2020/01/smallbizgenius_software-1.png" alt="">
+    <img src="https://www.smallbizgenius.net/wp-content/uploads/2020/01/smallbizgenius_software-1.png" alt="">
+    <img src="https://www.smallbizgenius.net/wp-content/uploads/2020/01/smallbizgenius_software-1.png" alt="">
+
+
+    <!-- <input type="text" /> -->
+
+    <div id="div1" ondragover="handleDragOver(event)" ondrop="handleDrop(event)"></div>
+
+    <script type="text/javascript">
+        function handleDragOver(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            event.dataTransfer.dropEffect = "copy"; // Display a "copy" cursor
+        }
+
+        function handleDrop(event) {
+            debugger;
+            event.stopPropagation();
+            event.preventDefault();
+
+            var img = document.createElement("img");
+            img.src = event.dataTransfer.getData("text/plain");
+            event.target.appendChild(img);
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js" type="text/javascript"></script>
+    <script src="./javascripts/jquery.gridly.js" type="text/javascript"></script>
+    <link href="./stylesheets/jquery.gridly.css" rel="stylesheet" type="text/css" />
+    <style>
+        .draggable {
+            width: 90px;
+            height: 90px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px 10px 10px 0;
+        }
+
+        #dropzone {
+            width: 200px;
+            height: 200px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px;
+            position: relative
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <div id="element">
+            <div class="draggable ui-widget-content">
+                <p>Drag me</p>
+            </div>
+        </div>
+        <div id="dropzone" class="ui-widget-header"></div>
+    </div>
+
+</body>
+<script>
+    $(function () {
+
+        $(".draggable").draggable({
+            helper: "clone",
+            cursor: 'move'
+        });
+
+        $("#dropzone").droppable({
+            drop: function (event, ui) {
+                var canvas = $(this);
+                if (!ui.draggable.hasClass('object')) {
+                    var canvasElement = ui.helper.clone();
+                    canvasElement.addClass('object');
+                    canvas.find("div").removeClass('activeElement');
+                    canvasElement.addClass('activeElement');
+                    canvasElement.removeClass(
+                        'draggable ui-draggable ui-draggable-handle ui-draggable-dragging');
+                    canvas.append(canvasElement);
+
+                    var off = canvas.position();
+                    var cElOff = {
+                        left: ui.position.left - off.left,
+                        top: ui.position.top - off.top
+                    };
+
+                    canvasElement.css({
+                        left: cElOff.left,
+                        top: cElOff.top,
+                        position: 'absolute',
+                        zIndex: 10
+                    });
+
+                    canvasElement.draggable({
+                        cursor: 'move',
+                        containment: '#dropzone'
+                    });
+
+                }
+            }
+        });
+    });
+</script>
+
+</html>
